@@ -14,6 +14,19 @@
   <body>
     <h1>My Diary</h1>
     <div id="todo-input-container">
+      <p id="diary-date"></p>
+      <select id="diary-topic">
+        <option value="">選擇標籤</option>
+        <option value="school">學業</option>
+        <option value="relation">人際</option>
+        <option value="club">社團</option>
+      </select>
+      <select id="diary-emoji">
+        <option value="">選擇心情</option>
+        <option value="happy">快樂</option>
+        <option value="angry">生氣</option>
+        <option value="sad">難過</option>
+      </select>
       <input type="text" id="todo-input" placeholder="new todo" tabindex="1" />
       <button id="todo-add" tabindex="3">新增日記卡</button>
     </div>

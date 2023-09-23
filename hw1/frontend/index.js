@@ -17,11 +17,26 @@ async function main() {
 }
 
 function setupEventListeners() {
+  let date_string = document.querySelector("#diary-date");
+  const topic = document.querySelector("#diary-topic").value;
+  const emoji = document.querySelector("#diary-emoji").value;
   const addTodoButton = document.querySelector("#todo-add");
   const todoInput = document.querySelector("#todo-input");
   const todoDescriptionInput = document.querySelector(
     "#todo-description-input",
   );
+
+  let time = new Date();
+  let month = time.getMonth();
+  let date = time.getDate();
+  let day = time.getDay();
+  const day_list = ["日","一","二","三","四","五","六"]
+  if (month<10) month = "0" + (month+1);
+  else month = month+1;
+  if (date<10) date = "0" + date;
+  day = day_list[day];
+  date_string.innerHTML = time.getFullYear() + "." + month + "." + date + " (" + day + ")";
+
   addTodoButton.addEventListener("click", async () => {
     const title = todoInput.value;
     const description = todoDescriptionInput.value;
