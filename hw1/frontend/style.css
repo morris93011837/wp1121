@@ -16,23 +16,19 @@ h1 {
   font-size: 3rem;
 }
 
-#todo-input-container {
+#diary-input-container {
   width: 100%;
   display: flex;
   align-items: center;
   gap: 1rem;
 }
-input#todo-input {
-  flex-grow: 1;
-}
-input#todo-input,
-button#todo-add {
+button#diary-save, button#diary-cancel {
   height: var(--todo-intput-height);
   font-size: var(--todo-intput-font-size);
   border-radius: 0.5rem;
   padding: 0 0.5rem;
 }
-textarea#todo-description-input {
+textarea#diary-content {
   width: 100%;
   margin-top: 1rem;
   height: 5rem;
@@ -67,7 +63,7 @@ textarea#todo-description-input {
   align-items: center;
   gap: 1rem;
 }
-.todo-title {
+.todo-topic, .todo-emoji {
   margin: 0;
   cursor: pointer;
   font-size: 1.5rem;
@@ -101,4 +97,8 @@ textarea#todo-description-input {
 }
 .todo-item button:hover {
   background-color: #f77;
+}
+
+#diary-edit{
+  display: block;
 }

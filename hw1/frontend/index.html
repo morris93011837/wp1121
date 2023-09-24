@@ -13,28 +13,28 @@
   </head>
   <body>
     <h1>My Diary</h1>
-    <div id="todo-input-container">
-      <p id="diary-date"></p>
-      <select id="diary-topic">
-        <option value="">選擇標籤</option>
-        <option value="school">學業</option>
-        <option value="relation">人際</option>
-        <option value="club">社團</option>
-      </select>
-      <select id="diary-emoji">
-        <option value="">選擇心情</option>
-        <option value="happy">快樂</option>
-        <option value="angry">生氣</option>
-        <option value="sad">難過</option>
-      </select>
-      <input type="text" id="todo-input" placeholder="new todo" tabindex="1" />
-      <button id="todo-add" tabindex="3">新增日記卡</button>
+
+    <div id="diary-edit">
+      <div id="diary-input-container">
+        <p id="diary-date"></p>
+        <select id="diary-topic">
+          <option value="">選擇標籤</option>
+          <option value="1">學業</option>
+          <option value="2">人際</option>
+          <option value="3">社團</option>
+        </select>
+        <select id="diary-emoji" >
+          <option value="">選擇心情</option>
+          <option value="1">快樂</option>
+          <option value="2">生氣</option>
+          <option value="3">難過</option>
+        </select>
+      </div>
+      <textarea id="diary-content" placeholder="內文" tabindex="1"></textarea>
+      <button id="diary-save" tabindex="2">儲存</button>
+      <button id="diary-cancel" tabindex="3">取消</button>
     </div>
-    <textarea
-      id="todo-description-input"
-      placeholder="description"
-      tabindex="2"
-    ></textarea>
+    
     <section id="todos"></section>
   </body>
   <template id="todo-item-template">
@@ -42,7 +42,8 @@
       <summary>
         <div>
           <input data-id="" type="checkbox" />
-          <p class="todo-title">todo 1</p>
+          <p class="todo-topic">todo 1</p>
+          <p class="todo-emoji">todo 1</p>
         </div>
         <button data-id="" class="delete-todo">delete</button>
       </summary>

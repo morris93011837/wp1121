@@ -3,8 +3,12 @@ import mongoose from "mongoose";
 // Create a schema
 const todoSchema = new mongoose.Schema(
   {
-    title: {
-      type: String,
+    topic: {
+      type: Number,
+      required: true,
+    },
+    emoji: {
+      type: Number,
       required: true,
     },
     description: {

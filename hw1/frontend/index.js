@@ -18,12 +18,11 @@ async function main() {
 
 function setupEventListeners() {
   let date_string = document.querySelector("#diary-date");
-  const topic = document.querySelector("#diary-topic").value;
-  const emoji = document.querySelector("#diary-emoji").value;
-  const addTodoButton = document.querySelector("#todo-add");
-  const todoInput = document.querySelector("#todo-input");
+  const topicInput = document.getElementById('diary-topic');
+  const emojiInput = document.getElementById('diary-emoji');
+  const addTodoButton = document.querySelector("#diary-save");
   const todoDescriptionInput = document.querySelector(
-    "#todo-description-input",
+    "#diary-content",
   );
 
   let time = new Date();
@@ -38,24 +37,30 @@ function setupEventListeners() {
   date_string.innerHTML = time.getFullYear() + "." + month + "." + date + " (" + day + ")";
 
   addTodoButton.addEventListener("click", async () => {
-    const title = todoInput.value;
     const description = todoDescriptionInput.value;
-    if (!title) {
-      alert("Please enter a todo title!");
+    const topic = parseInt(topicInput.value);
+    const emoji = parseInt(emojiInput.value);
+    if (!topic) {
+      alert("請選擇標籤");
+      return;
+    }
+    if (!emoji) {
+      alert("請選擇心情");
       return;
     }
     if (!description) {
-      alert("Please enter a todo description!");
+      alert("請輸入日記內文");
       return;
     }
     try {
-      const todo = await createTodo({ title, description });
+      const todo = await createTodo({ topic, emoji, description });
       renderTodo(todo);
     } catch (error) {
       alert("Failed to create todo!");
       return;
     }
-    todoInput.value = "";
+    topic="";
+    emoji="";
     todoDescriptionInput.value = "";
   });
 }
@@ -73,8 +78,10 @@ function createTodoElement(todo) {
   const checkbox = item.querySelector(`input[type="checkbox"]`);
   checkbox.checked = todo.completed;
   checkbox.dataset.id = todo.id;
-  const title = item.querySelector("p.todo-title");
-  title.innerText = todo.title;
+  const topic = item.querySelector("p.todo-topic");
+  const emoji = item.querySelector("p.todo-emoji");
+  topic.innerText = todo.topic;
+  emoji.innerText = todo.emoji;
   const description = item.querySelector("p.todo-description");
   description.innerText = todo.description;
   const deleteButton = item.querySelector("button.delete-todo");
