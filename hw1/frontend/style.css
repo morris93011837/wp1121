@@ -22,21 +22,33 @@ h1 {
   align-items: center;
   gap: 1rem;
 }
-button#diary-save, button#diary-cancel {
+button#diary-save, button#diary-cancel, button#diary-add {
   height: var(--todo-intput-height);
   font-size: var(--todo-intput-font-size);
   border-radius: 0.5rem;
   padding: 0 0.5rem;
 }
+button#diary-save{
+  background-color:rgb(255, 64, 47);
+  border: 1px solid #5b0000;
+}
+button#diary-cancel{
+  background-color:rgb(255, 235, 124);
+  border: 1px solid #a89700;
+}
 textarea#diary-content {
-  width: 100%;
+  width: 90%;
   margin-top: 1rem;
-  height: 5rem;
+  margin-bottom: 1rem;
+  height: 14rem;
   resize: none;
   border-radius: 0.5rem;
   padding: 0.5rem;
   font-size: 1rem;
   border: 1px solid #ccc;
+  box-sizing: border-box;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
 #todos {
@@ -100,5 +112,13 @@ textarea#diary-content {
 }
 
 #diary-edit{
-  display: block;
+  width: 600px;
+  display: none;
+  position:fixed;
+  z-index: 1;
+  background-color:rgb(253, 195, 138);
+  padding: 10px;
+  border-radius: 0.5rem;
+  border: 1px solid #000000;
+  box-sizing: border-box;
 }

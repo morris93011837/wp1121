@@ -20,10 +20,11 @@ function setupEventListeners() {
   let date_string = document.querySelector("#diary-date");
   const topicInput = document.getElementById('diary-topic');
   const emojiInput = document.getElementById('diary-emoji');
-  const addTodoButton = document.querySelector("#diary-save");
-  const todoDescriptionInput = document.querySelector(
-    "#diary-content",
-  );
+  const saveButton = document.querySelector("#diary-save");
+  const todoDescriptionInput = document.querySelector("#diary-content");
+  const addButton = document.querySelector("#diary-add");
+  const editor = document.querySelector("#diary-edit");
+  const cancelButton = document.querySelector("#diary-cancel");
 
   let time = new Date();
   let month = time.getMonth();
@@ -36,7 +37,7 @@ function setupEventListeners() {
   day = day_list[day];
   date_string.innerHTML = time.getFullYear() + "." + month + "." + date + " (" + day + ")";
 
-  addTodoButton.addEventListener("click", async () => {
+  saveButton.addEventListener("click", async () => {
     const description = todoDescriptionInput.value;
     const topic = parseInt(topicInput.value);
     const emoji = parseInt(emojiInput.value);
@@ -58,10 +59,26 @@ function setupEventListeners() {
     } catch (error) {
       alert("Failed to create todo!");
       return;
+    } finally{
+      topicInput.selectedIndex=0;
+      emojiInput.selectedIndex=0;
+      todoDescriptionInput.value = "";
+      editor.style.display = "none";
+      addButton.style.display = "initial";
     }
-    topic="";
-    emoji="";
+  });
+
+  cancelButton.addEventListener("click", () =>{ 
+    topicInput.selectedIndex=0;
+    emojiInput.selectedIndex=0;
     todoDescriptionInput.value = "";
+    editor.style.display = "none";
+    addButton.style.display = "initial";
+  });
+
+  addButton.addEventListener("click", () => {
+    editor.style.display = "block";
+    addButton.style.display = "none";
   });
 }
 

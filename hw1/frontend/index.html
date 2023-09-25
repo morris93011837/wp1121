@@ -13,8 +13,9 @@
   </head>
   <body>
     <h1>My Diary</h1>
+    <div style="text-align:center"><button id="diary-add">新增日記本</button></div>
 
-    <div id="diary-edit">
+    <rect id="diary-edit">
       <div id="diary-input-container">
         <p id="diary-date"></p>
         <select id="diary-topic">
@@ -31,9 +32,18 @@
         </select>
       </div>
       <textarea id="diary-content" placeholder="內文" tabindex="1"></textarea>
-      <button id="diary-save" tabindex="2">儲存</button>
-      <button id="diary-cancel" tabindex="3">取消</button>
-    </div>
+      <div style="text-align:right">
+        <button id="diary-save" tabindex="2">儲存</button>
+        <button id="diary-cancel" tabindex="3">取消</button>
+      </div>
+    </rect>
+
+    <rect id="diary-view">
+      <p id="view-date"></p>
+      <p id="view-topic"></p>
+      <p id="view-emoji"></p>
+      <p id="view-content"></p>
+    </rect>
     
     <section id="todos"></section>
   </body>
