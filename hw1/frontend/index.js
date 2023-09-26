@@ -5,6 +5,8 @@ const addButton = document.querySelector("#diary-add");
 const diaryView = document.querySelector("#diary-view");
 const intoEdit = document.querySelector("#into-edit");
 const editor = document.querySelector("#diary-edit");
+const filterRec = document.querySelector("#filter");
+const filterButton = document.querySelector("#filter-button");
 
 let date_string = document.querySelector("#diary-date");
 const topicInput = document.getElementById('diary-topic');
@@ -15,6 +17,8 @@ const cancelButton = document.querySelector("#diary-cancel");
 const dateButton = document.querySelector("#select-date");
 const desigDate = document.querySelector("#designated-date");
 const closeButton = document.querySelector("#close-view");
+const filterTopic = document.querySelector("#filter-topic");
+const filterEmoji = document.querySelector("#filter-emoji");
 const topics = ["" , "學業" , "人際" , "社團"];
 const emojis = ["" , "快樂" , "生氣" , "難過"];
 const day_list = [" (日)"," (一)"," (二)"," (三)"," (四)"," (五)"," (六)"];
@@ -78,9 +82,11 @@ function setupEventListeners() {
       todoDescriptionInput.value = "";
       editor.style.display = "none";
       addButton.style.display = "initial";
+      filterRec.style.display = "flex";
       date_string.style.display = "initial";
       desigDate.style.display = "none";
       editState = 0;
+      filterTodo();
     }
   });
 
@@ -91,6 +97,7 @@ function setupEventListeners() {
     todoDescriptionInput.value = "";
     editor.style.display = "none";
     addButton.style.display = "initial";
+    filterRec.style.display = "flex";
     date_string.style.display = "initial";
     desigDate.style.display = "none";
     editState = 0;
@@ -99,6 +106,7 @@ function setupEventListeners() {
   addButton.addEventListener("click", () => {
     editor.style.display = "block";
     addButton.style.display = "none";
+    filterRec.style.display = "none";
   });
 
   dateButton.addEventListener("click", () => {
@@ -109,6 +117,11 @@ function setupEventListeners() {
   closeButton.addEventListener("click", () => {
     diaryView.style.display = "none";
     addButton.style.display = "initial";
+    filterRec.style.display = "flex";
+  });
+
+  filterButton.addEventListener("click", () => {
+    filterTodo();
   });
 }
 
@@ -121,7 +134,6 @@ function createTodoElement(todo) {
   const item = itemTemplate.content.cloneNode(true);
   const container = item.querySelector(".todo-item");
   container.id = todo.id;
-  console.log(todo);
   const date = item.querySelector("p.todo-date");
   const topic = item.querySelector("p.todo-topic");
   const emoji = item.querySelector("p.todo-emoji");
@@ -188,11 +200,13 @@ function viewTodoElement(todo){
   });
   diaryView.style.display = "initial";
   addButton.style.display = "none";
+  filterRec.style.display = "none";
 }
 
 function editElement(todo){
   editor.style.display = "block";
   addButton.style.display = "none";
+  filterRec.style.display = "none";
   diaryView.style.display = "none";
 
   date_string.innerText = todo.date;
@@ -211,6 +225,35 @@ function getSystemDate(){
   if (date<10) date = "0" + date;
   const tmp = time.getFullYear() + "." + month + "." + date + day_list[day];
   return tmp;
+}
+
+function filterTodo(){
+  const fTopic = parseInt(filterTopic.value);
+  const fEmoji = parseInt(filterEmoji.value);
+  if( fTopic===0 && fEmoji===0 )
+    for(let a=0 ; a<todoList.children.length ; a++)
+      todoList.children[a].style.display="flex";
+  else if( fTopic!==0 && fEmoji===0 )
+    for(let a=0 ; a<todoList.children.length ; a++){
+      if( (todoList.children[a]).querySelector(".todo-topic").innerText === topics[fTopic] )
+        todoList.children[a].style.display="flex";
+      else
+        todoList.children[a].style.display="none";
+    }
+  else if( fTopic===0 && fEmoji!==0 )
+    for(let a=0 ; a<todoList.children.length ; a++){
+      if( (todoList.children[a]).querySelector(".todo-emoji").innerText === emojis[fEmoji] )
+        todoList.children[a].style.display="flex";
+      else
+        todoList.children[a].style.display="none";
+    }
+  else
+    for(let a=0 ; a<todoList.children.length ; a++){
+      if( (todoList.children[a]).querySelector(".todo-topic").innerText === topics[fTopic] && (todoList.children[a]).querySelector(".todo-emoji").innerText === emojis[fEmoji])
+        todoList.children[a].style.display="flex";
+      else
+        todoList.children[a].style.display="none";
+    }
 }
 
 main();

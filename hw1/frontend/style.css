@@ -28,7 +28,11 @@ button#diary-save, button#diary-cancel, button#diary-add, button#into-edit, butt
   border-radius: 0.5rem;
   padding: 0 0.5rem;
 }
-button#diary-add:hover, button#close-view:hover{
+button#diary-add{
+  background-color:rgb(255, 235, 124);
+  font-weight:bold;
+}
+button#close-view:hover, button#filter-button:hover{
   background-color: #cecece;
 }
 button#diary-save,button#into-edit{
@@ -42,7 +46,7 @@ button#diary-cancel, button#close-view{
   background-color:rgb(255, 235, 124);
   border: 1px solid #9d8d00;
 }
-button#diary-cancel:hover, button#close-view:hover{
+button#diary-cancel:hover, button#close-view:hover, button#diary-add:hover{
   background-color:rgb(255, 243, 173);
 }
 button#close-view{
@@ -92,6 +96,7 @@ textarea#diary-content {
   gap: 1rem;
 }
 .todo-date{
+  font-weight:bold;
   margin-right: 2.5rem;
 }
 .todo-topic, .todo-emoji, #view-topic, #view-emoji {
@@ -158,11 +163,9 @@ textarea#diary-content {
   overflow: auto;
   background-color:rgb(255, 216, 177);
 }
-
 #diary-date{
   margin-left: 3rem;
 }
-
 #designated-date{
   margin-left: 3rem;
   display:none;
@@ -172,18 +175,49 @@ textarea#diary-content {
   display:flex;
   flex-wrap: wrap;
 }
-
 #view-date{
   margin-left: 2.5rem;
   margin-right: 2.5rem;
 }
-
 #view-content{
   width: 100%;
   margin-left: 2.5rem;
   margin-right: 2.5rem;
 }
-
 #view-topic, #view-emoji{
   margin-top: 0.8rem;
+}
+
+#filter{
+  width: 450px;
+  height: 2.3rem;
+  display: flex;
+  background-color: white;
+  border-radius: 0.3rem;
+  border: 1.5px solid #000000;
+  box-sizing: border-box;
+  justify-content: center;
+  line-height:0.4;
+  margin-top: 1rem;
+  margin-left: 75px;
+}
+#filter-topic, #filter-emoji{
+  height: 1.5rem;
+  margin-top: 0.4rem;
+}
+#filter-p1{
+  font-weight:bold;
+  margin-right: 4.5rem;
+}
+#filter-p3{
+  margin-left: 1rem;
+}
+#filter-button{
+  height: 1.5rem;
+  font-size: var(--todo-intput-font-size);
+  margin-left: 2rem;
+  margin-top: 0.4rem;
+  border-radius: 0.3rem;
+  line-height:0.4;
+  border-width: 0.7px;
 }

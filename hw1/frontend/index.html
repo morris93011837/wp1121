@@ -13,7 +13,27 @@
   </head>
   <body>
     <h1>My Diary</h1>
-    <div style="text-align:center"><button id="diary-add">新增日記本</button></div>
+    <div style="text-align: center">
+      <button id="diary-add">新增日記本</button>
+    </div>
+    <div id="filter">
+      <p id="filter-p1">篩選</p>
+      <p id="filter-p2">標籤：</p>
+      <select id="filter-topic">
+        <option value="0">不限</option>
+        <option value="1">學業</option>
+        <option value="2">人際</option>
+        <option value="3">社團</option>
+      </select>
+      <p id="filter-p3">心情：</p>
+      <select id="filter-emoji">
+        <option value="0">不限</option>
+        <option value="1">快樂</option>
+        <option value="2">生氣</option>
+        <option value="3">難過</option>
+      </select>
+      <button id="filter-button">確定</button>
+    </div>
 
     <rect id="diary-edit">
       <div id="diary-input-container">
@@ -26,7 +46,7 @@
           <option value="2">人際</option>
           <option value="3">社團</option>
         </select>
-        <select id="diary-emoji" >
+        <select id="diary-emoji">
           <option value="">選擇心情</option>
           <option value="1">快樂</option>
           <option value="2">生氣</option>
@@ -34,7 +54,7 @@
         </select>
       </div>
       <textarea id="diary-content" placeholder="內文" tabindex="1"></textarea>
-      <div style="text-align:right">
+      <div style="text-align: right">
         <button id="diary-save" tabindex="2">儲存</button>
         <button id="diary-cancel" tabindex="3">取消</button>
       </div>
@@ -47,12 +67,12 @@
         <p id="view-emoji"></p>
         <p id="view-content"></p>
       </div>
-      <div id="view-bottom" style="text-align:right">
+      <div id="view-bottom" style="text-align: right">
         <button id="into-edit">編輯</button>
         <button id="close-view">關閉</button>
       </div>
     </rect>
-    
+
     <section id="todos"></section>
   </body>
   <template id="todo-item-template">
