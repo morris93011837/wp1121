@@ -10,4 +10,5 @@
   在terminal依序輸入"wsl"、"cd backend"、"yarn"、"yarn start"，等到顯示出"Connected to MongoDB"、"Server running on port http://localhost:8000"，再執行下一步
 3.開啟 frontend 之 index.html即可操作
 
-註： 不建議使用台大 wi-fi 啟動 backend 連接 mongodb，可能出現 query REFUSED 
+註: 1.不建議使用台大 wi-fi 啟動 backend 連接 mongodb，可能出現 query REFUSED 
+    2.若執行yarn lint 時顯示"warning ..\..\..\..\package.json: No license field"，通常為本機端母資料夾有其他package.json檔案所導致，與此程式無關，此程式之frontend/package.json與backend/package.json皆有"license": "MIT"
