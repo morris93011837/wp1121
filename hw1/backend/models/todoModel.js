@@ -3,6 +3,10 @@ import mongoose from "mongoose";
 // Create a schema
 const todoSchema = new mongoose.Schema(
   {
+    date: {
+      type: String,
+      required: true,
+    },
     topic: {
       type: Number,
       required: true,
@@ -14,10 +18,6 @@ const todoSchema = new mongoose.Schema(
     description: {
       type: String,
       required: true,
-    },
-    completed: {
-      type: Boolean,
-      default: false,
     },
   },
   // The second argument is an options object.

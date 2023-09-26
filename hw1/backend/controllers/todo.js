@@ -19,22 +19,21 @@ export const getTodos = async (req, res) => {
 };
 // Create a todo
 export const createTodo = async (req, res) => {
-  const { topic , emoji , description } = req.body;
-
-  // Check topic , emoji and description
-  if (!topic || !emoji || !description) {
+  const { date , topic , emoji , description } = req.body;
+  // Check date, topic , emoji and description
+  if (!date || !topic || !emoji || !description) {
     return res
       .status(400)
-      .json({ message: "topic, emoji and description are required!" });
+      .json({ message: "date, topic, emoji and description are required!" });
   }
-
+  
   // Create a new todo
   try {
     const newTodo = await TodoModel.create({
+      date,
       topic ,
       emoji,
       description,
-      completed: false,
     });
     return res.status(201).json(newTodo);
   } catch (error) {
@@ -45,7 +44,7 @@ export const createTodo = async (req, res) => {
 // Update a todo
 export const updateTodo = async (req, res) => {
   const { id } = req.params;
-  const { topic, emoji, description, completed } = req.body;
+  const { date, topic, emoji, description } = req.body;
 
   try {
     // Check if the id is valid
@@ -55,10 +54,10 @@ export const updateTodo = async (req, res) => {
     }
 
     // Update the todo
+    if (date !== undefined) existedTodo.date = date;
     if (topic !== undefined) existedTodo.topic = topic;
     if (emoji !== undefined) existedTodo.emoji = emoji;
     if (description !== undefined) existedTodo.description = description;
-    if (completed !== undefined) existedTodo.completed = completed;
 
     // Save the updated todo
     await existedTodo.save();

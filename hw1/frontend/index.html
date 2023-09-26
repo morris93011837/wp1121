@@ -18,6 +18,8 @@
     <rect id="diary-edit">
       <div id="diary-input-container">
         <p id="diary-date"></p>
+        <input type="date" id="designated-date" />
+        <button id="select-date">更改日期</button>
         <select id="diary-topic">
           <option value="">選擇標籤</option>
           <option value="1">學業</option>
@@ -39,25 +41,28 @@
     </rect>
 
     <rect id="diary-view">
-      <p id="view-date"></p>
-      <p id="view-topic"></p>
-      <p id="view-emoji"></p>
-      <p id="view-content"></p>
+      <div id="view-setting">
+        <p id="view-date"></p>
+        <p id="view-topic"></p>
+        <p id="view-emoji"></p>
+        <p id="view-content"></p>
+      </div>
+      <div id="view-bottom" style="text-align:right">
+        <button id="into-edit">編輯</button>
+        <button id="close-view">關閉</button>
+      </div>
     </rect>
     
     <section id="todos"></section>
   </body>
   <template id="todo-item-template">
-    <details id="" class="todo-item">
-      <summary>
-        <div>
-          <input data-id="" type="checkbox" />
-          <p class="todo-topic">todo 1</p>
-          <p class="todo-emoji">todo 1</p>
-        </div>
-        <button data-id="" class="delete-todo">delete</button>
-      </summary>
-      <p class="todo-description">todo 1 description</p>
-    </details>
+    <div id="" class="todo-item">
+      <p class="todo-date">日期</p>
+      <p class="todo-topic">標籤</p>
+      <p class="todo-emoji">心情</p>
+      <button data-id="" class="delete-todo">刪除</button>
+      <button class="view-todo">檢視內容</button>
+      <p class="todo-description">內文</p>
+    </div>
   </template>
 </html>
