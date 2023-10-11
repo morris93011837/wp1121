@@ -21,6 +21,7 @@ export const getLists = async (_: Request, res: Response<GetListsResponse>) => {
       return {
         id: list.id,
         name: list.name,
+        descript: list.descript,
       };
     });
 
@@ -45,6 +46,7 @@ export const getList = async (
     return res.status(200).json({
       id: lists.id,
       name: lists.name,
+      descript: lists.descript,
       cards: lists.cards as unknown as CardData[],
     });
   } catch (error) {
@@ -72,13 +74,14 @@ export const updateList = async (
 ) => {
   try {
     const { id } = req.params;
-    const { name } = req.body;
+    const { name, descript } = req.body;
 
     // Update the list
     const newList = await ListModel.findByIdAndUpdate(
       id,
       {
         name: name,
+        descript: descript,
       },
       { new: true },
     );

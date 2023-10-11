@@ -22,6 +22,10 @@ const CardSchema = new mongoose.Schema<CardDocument>(
       type: String,
       required: true,
     },
+    linkto:{
+      type: String,
+      required: true,
+    },
     list_id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "List",

@@ -11,12 +11,12 @@ export type viewProps = {
   id: string;
   name: string;
   count: number;
-  callback: ()=>any;
+  callback: ()=>void;
   deleteMode: boolean;
 };
 
 export default function View({ id, name, count, callback, deleteMode }: viewProps) {
-  var word:string = "songs"
+  let word:string = "songs"
   if(count<2)  word="song"
 
   const { fetchLists } = useCards()

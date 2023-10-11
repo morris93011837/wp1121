@@ -11,7 +11,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
-import { TransitionProps } from '@mui/material/transitions';
+import type { TransitionProps } from '@mui/material/transitions';
 
 import albumCover from "@img/album_cover.jpg"
 import CardList from "@/components/CardList";
@@ -35,12 +35,13 @@ const Transition = React.forwardRef(function Transition(
 
 export default function FullScreenDialog({ open, onClose, listId }: FullListDialogProps) {
   const { lists } = useCards();
-  var selectedList={
+  let selectedList={
     id:"",
     name:"",
+    descript:"",
     cards: [] as CardProps[],  
   };
-  for(let list of lists){
+  for(const list of lists){
     if(list.id===listId){
       selectedList = list;
       break;
@@ -67,26 +68,13 @@ export default function FullScreenDialog({ open, onClose, listId }: FullListDial
             <Typography sx={{ ml: 2, flex: 1 }} variant="h5" component="div">
               WP Music
             </Typography>
-            {/*<Button autoFocus color="inherit" onClick={onClose}>
-              save
-            </Button>*/}
           </Toolbar>
         </AppBar>
-        {/*<List>
-          <ListItem>
-            <ListItemText primary="Phone ringtone" secondary="Titania" />
-          </ListItem>
-          <Divider />
-          <ListItem>
-            <ListItemText
-              primary="Default notification ringtone"
-              secondary="Tethys"
-            />
-          </ListItem>
-        </List>*/}
-        <div  className="p-6">
-          <img src={albumCover} alt='an album cover' width={'300px'}/>
-          <CardList key={selectedList.id} {...selectedList} />
+        <div  className="flex p-6">
+          <img src={albumCover} alt='an album cover' width={'240px'} height={'240px'}/>
+          <div className="flex-col p-6">
+            <CardList key={selectedList.id} {...selectedList} />
+          </div>
         </div>
       </Dialog>
   );

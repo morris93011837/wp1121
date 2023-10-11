@@ -11,11 +11,15 @@ import type { GetCardsResponse, GetListsResponse } from "@lib/shared_types";
 import type { CardListProps } from "@/components/CardList";
 import { getCards, getLists } from "@/utils/client";
 
+type Counts = {
+  [key: string]: number;
+}
+
 type CardContextType = {
   lists: CardListProps[];
   fetchLists: () => Promise<void>;
   fetchCards: () => Promise<void>;
-  counts: any; 
+  counts: Counts; 
 };
 
 // context is a way to share data between components without having to pass props down the component tree
@@ -38,7 +42,13 @@ type CardProviderProps = {
 export function CardProvider({ children }: CardProviderProps) {
   const [rawLists, setRawLists] = useState<GetListsResponse>([]);
   const [rawCards, setRawCards] = useState<GetCardsResponse>([]);
-  var counts:any = {};
+  const counts: Counts = useMemo(() => {
+    const initialCounts:Counts = {};
+    for (const list of rawLists) {
+      initialCounts[list.id] = 0;
+    }
+    return initialCounts;
+  }, [rawLists]);
 
   const fetchLists = useCallback(async () => {
     try {
@@ -81,7 +91,7 @@ export function CardProvider({ children }: CardProviderProps) {
       ++(counts[card.list_id]);
     }
     return Object.values(listMap);
-  }, [rawCards, rawLists]);
+  }, [rawCards, rawLists, counts]);
 
   return (
     <CardContext.Provider

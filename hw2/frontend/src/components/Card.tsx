@@ -8,10 +8,11 @@ export type CardProps = {
   id: string;
   title: string;
   description: string;
+  linkto: string;
   listId: string;
 };
 
-export default function Card({ id, title, description, listId }: CardProps) {
+export default function Card({ id, title, description, linkto, listId }: CardProps) {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -31,6 +32,7 @@ export default function Card({ id, title, description, listId }: CardProps) {
         onClose={() => setOpen(false)}
         title={title}
         description={description}
+        linkto={linkto}
         listId={listId}
         cardId={id}
       />

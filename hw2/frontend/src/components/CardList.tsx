@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Divider from "@mui/material/Divider";
 import Input from "@mui/material/Input";
-import Paper from "@mui/material/Paper";
+
 import Typography from "@mui/material/Typography";
 
 import useCards from "@/hooks/useCards";
@@ -17,14 +17,17 @@ import CardDialog from "./CardDialog";
 export type CardListProps = {
   id: string;
   name: string;
+  descript: string;
   cards: CardProps[];
 };
 
-export default function CardList({ id, name, cards }: CardListProps) {
+export default function CardList({ id, name, descript, cards }: CardListProps) {
   const [openNewCardDialog, setOpenNewCardDialog] = useState(false);
   const [editingName, setEditingName] = useState(false);
+  const [editingDescript, setEditingDescript] = useState(false);
   const { fetchLists } = useCards();
   const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef2 = useRef<HTMLInputElement>(null);
 
   const handleUpdateName = async () => {
     if (!inputRef.current) return;
@@ -32,7 +35,7 @@ export default function CardList({ id, name, cards }: CardListProps) {
     const newName = inputRef.current.value;
     if (newName !== name) {
       try {
-        await updateList(id, { name: newName });
+        await updateList(id, { name: newName, descript: descript });
         fetchLists();
       } catch (error) {
         alert("Error: Failed to update list name");
@@ -41,10 +44,24 @@ export default function CardList({ id, name, cards }: CardListProps) {
     setEditingName(false);
   };
 
+  const handleUpdateDescript = async () => {
+    if (!inputRef2.current) return;
+
+    const newDescript = inputRef2.current.value;
+    if (newDescript !== descript) {
+      try {
+        await updateList(id, { name: name, descript: newDescript });
+        fetchLists();
+      } catch (error) {
+        alert("Error: Failed to update list name");
+      }
+    }
+    setEditingDescript(false);
+  };
+
   return (
     <>
-      <Paper className="w-80 p-6 z-10">
-        <div className="flex gap-4">
+        <div className="flex-col gap-4">
           {editingName ? (
             <ClickAwayListener onClickAway={handleUpdateName}>
               <Input
@@ -66,23 +83,51 @@ export default function CardList({ id, name, cards }: CardListProps) {
               </Typography>
             </button>
           )}
+
+          {editingDescript ? (
+            <ClickAwayListener onClickAway={handleUpdateDescript}>
+              <Input
+                autoFocus
+                defaultValue={descript}
+                className="grow"
+                placeholder="Enter description for this playlist"
+                sx={{ fontSize: "1rem" }}
+                inputRef={inputRef2}
+              />
+            </ClickAwayListener>
+          ) : (
+            <button
+              onClick={() => setEditingDescript(true)}
+              className="w-full rounded-md p-2 hover:bg-white/10"
+            >
+              <Typography className="text-start" variant="h6">
+                {descript}
+              </Typography>
+            </button>
+          )}
+          <div className="mx-auto flex max-h-full flex-row gap-6 px-6 py-6">
+            <Button
+              variant="contained"
+              className="w-20"
+              onClick={() => setOpenNewCardDialog(true)}
+            >
+              Add
+            </Button>
+            <Button variant="contained"
+              className="w-30"
+            >
+              Delete
+            </Button>
+          </div>
         </div>
+
         <Divider variant="middle" sx={{ mt: 1, mb: 2 }} />
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 grid">
           {cards.map((card) => (
             <Card key={card.id} {...card} />
           ))}
-          <Button
-            variant="contained"
-            onClick={() => setOpenNewCardDialog(true)}
-          >
-            Add
-          </Button>
-          <Button variant="contained">
-            Delete
-          </Button>
         </div>
-      </Paper>
+      
       <CardDialog
         variant="new"
         open={openNewCardDialog}

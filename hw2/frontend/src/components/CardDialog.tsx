@@ -34,6 +34,7 @@ type EditCardDialogProps = {
   cardId: string;
   title: string;
   description: string;
+  linkto: string;
 };
 
 type CardDialogProps = NewCardDialogProps | EditCardDialogProps;
@@ -42,17 +43,20 @@ export default function CardDialog(props: CardDialogProps) {
   const { variant, open, onClose, listId } = props;
   const title = variant === "edit" ? props.title : "";
   const description = variant === "edit" ? props.description : "";
+  const linkto = variant === "edit" ? props.linkto : "";
 
   const [editingTitle, setEditingTitle] = useState(variant === "new");
   const [editingDescription, setEditingDescription] = useState(
     variant === "new",
   );
+  const [editingLinkto, setEditingLinkto] = useState(variant === "new",);
 
   // using a state variable to store the value of the input, and update it on change is another way to get the value of a input
   // however, this method is not recommended for large forms, as it will cause a re-render on every change
   // you can read more about it here: https://react.dev/reference/react-dom/components/input#controlling-an-input-with-a-state-variable
   const [newTitle, setNewTitle] = useState(title);
   const [newDescription, setNewDescription] = useState(description);
+  const [newLinkto, setNewLinkto] = useState(linkto);
   const [newListId, setNewListId] = useState(listId);
 
   const { lists, fetchCards } = useCards();
@@ -67,12 +71,14 @@ export default function CardDialog(props: CardDialogProps) {
         await createCard({
           title: newTitle,
           description: newDescription,
+          linkto: newLinkto,
           list_id: listId,
         });
       } else {
         if (
           newTitle === title &&
           newDescription === description &&
+          newLinkto === linkto &&
           newListId === listId
         ) {
           return;
@@ -82,6 +88,7 @@ export default function CardDialog(props: CardDialogProps) {
         await updateCard(props.cardId, {
           title: newTitle,
           description: newDescription,
+          linkto: newLinkto,
           list_id: newListId,
         });
       }
@@ -173,6 +180,30 @@ export default function CardDialog(props: CardDialogProps) {
             className="w-full rounded-md p-2 hover:bg-white/10"
           >
             <Typography className="text-start">{newDescription}</Typography>
+          </button>
+        )}
+        {editingLinkto ? (
+          <ClickAwayListener
+            onClickAway={() => {
+              if (variant === "edit") {
+                setEditingLinkto(false);
+              }
+            }}
+          >
+            <textarea
+              className="bg-white/0 p-2"
+              autoFocus
+              defaultValue={linkto}
+              placeholder="Link"
+              onChange={(e) => setNewLinkto(e.target.value)}
+            />
+          </ClickAwayListener>
+        ) : (
+          <button
+            onClick={() => setEditingLinkto(true)}
+            className="w-full rounded-md p-2 hover:bg-white/10"
+          >
+            <Typography className="text-start">{newLinkto}</Typography>
           </button>
         )}
         <DialogActions>
