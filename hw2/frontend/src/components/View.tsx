@@ -4,17 +4,17 @@ import Typography from "@mui/material/Typography";
 import albumCover from "@img/album_cover.jpg"
 
 export type viewProps = {
-  id: string;
   name: string;
   count: number;
+  callback: ()=>any;
 };
 
-export default function View({ id, name, count }: viewProps) {
+export default function View({ name, count, callback }: viewProps) {
 
   return (
     <>
       <Paper className="flex flex-col gap-4 w-70 p-6">
-        <img src={albumCover} alt='an album cover' width={'240px'}/>
+        <img src={albumCover} alt='an album cover' width={'240px'} onClick={callback}/>
         <Typography className="text-start" variant="h6">
           {count} songs
         </Typography>

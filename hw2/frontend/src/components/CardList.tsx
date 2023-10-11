@@ -55,7 +55,7 @@ export default function CardList({ id, name, cards }: CardListProps) {
 
   return (
     <>
-      <Paper className="w-80 p-6">
+      <Paper className="w-80 p-6 z-10">
         <div className="flex gap-4">
           {editingName ? (
             <ClickAwayListener onClickAway={handleUpdateName}>
