@@ -34,11 +34,11 @@ export default function NewListDialog({ open, onClose }: NewListDialogProps) {
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Add a list</DialogTitle>
+      <DialogTitle>Add a playlist</DialogTitle>
       <DialogContent>
         <TextField
           inputRef={textfieldRef}
-          label="List Name"
+          label="Playlist Name"
           variant="outlined"
           sx={{ mt: 2 }}
           autoFocus

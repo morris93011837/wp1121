@@ -1,17 +1,14 @@
 import { useRef, useState } from "react";
 
-import AddIcon from "@mui/icons-material/Add";
-import DeleteIcon from "@mui/icons-material/Delete";
 import Button from "@mui/material/Button";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
 import Input from "@mui/material/Input";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 
 import useCards from "@/hooks/useCards";
-import { deleteList, updateList } from "@/utils/client";
+import { updateList } from "@/utils/client";
 
 import Card from "./Card";
 import type { CardProps } from "./Card";
@@ -44,15 +41,6 @@ export default function CardList({ id, name, cards }: CardListProps) {
     setEditingName(false);
   };
 
-  const handleDelete = async () => {
-    try {
-      await deleteList(id);
-      fetchLists();
-    } catch (error) {
-      alert("Error: Failed to delete list");
-    }
-  };
-
   return (
     <>
       <Paper className="w-80 p-6 z-10">
@@ -63,7 +51,7 @@ export default function CardList({ id, name, cards }: CardListProps) {
                 autoFocus
                 defaultValue={name}
                 className="grow"
-                placeholder="Enter a new name for this list..."
+                placeholder="Enter a name for this playlist"
                 sx={{ fontSize: "2rem" }}
                 inputRef={inputRef}
               />
@@ -78,11 +66,6 @@ export default function CardList({ id, name, cards }: CardListProps) {
               </Typography>
             </button>
           )}
-          <div className="grid place-items-center">
-            <IconButton color="error" onClick={handleDelete}>
-              <DeleteIcon />
-            </IconButton>
-          </div>
         </div>
         <Divider variant="middle" sx={{ mt: 1, mb: 2 }} />
         <div className="flex flex-col gap-4">
@@ -93,8 +76,10 @@ export default function CardList({ id, name, cards }: CardListProps) {
             variant="contained"
             onClick={() => setOpenNewCardDialog(true)}
           >
-            <AddIcon className="mr-2" />
-            Add a card
+            Add
+          </Button>
+          <Button variant="contained">
+            Delete
           </Button>
         </div>
       </Paper>

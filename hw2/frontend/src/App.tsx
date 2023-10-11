@@ -13,6 +13,7 @@ function App() {
   const { lists, fetchLists, fetchCards, counts } = useCards();
   const [newListDialogOpen, setNewListDialogOpen] = useState(false);
   const [fullListDialogOpen, setFullListDialogOpen] = useState(false);
+  const [deleteMode, setDeleteMode] = useState(false);
   const [listId, setListId] = useState("");
 
   useEffect(() => {
@@ -36,13 +37,20 @@ function App() {
           <Button
             variant="contained"
             className="w-30"
+            onClick={() => setDeleteMode(!deleteMode)}
           >
-            DELETE
+            {deleteMode ? "DONE" : "DELETE" }
           </Button>
         </div>
         <div className="mx-auto flex max-h-full flex-row gap-6 px-24 py-12">
           {lists.map((list) => (
-            <View key={list.id} {...list} count={counts[list.id]} callback={() => {setFullListDialogOpen(true); setListId(list.id) }} />
+            <View 
+              key={list.id} 
+              {...list} 
+              count={counts[list.id]} 
+              callback={() => {setFullListDialogOpen(true); setListId(list.id) }} 
+              deleteMode={deleteMode}
+            />
           ))}
         </div>
         <FullScreenDialog

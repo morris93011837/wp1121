@@ -1,7 +1,7 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 /*import ListItemText from '@mui/material/ListItemText';
+import Button from '@mui/material/Button';
 import ListItem from '@mui/material/ListItem';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';*/
@@ -13,6 +13,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
 
+import albumCover from "@img/album_cover.jpg"
 import CardList from "@/components/CardList";
 import useCards from "@/hooks/useCards";
 import type { CardProps } from "./Card";
@@ -63,12 +64,12 @@ export default function FullScreenDialog({ open, onClose, listId }: FullListDial
             >
               <CloseIcon />
             </IconButton>
-            <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-              Sound
+            <Typography sx={{ ml: 2, flex: 1 }} variant="h5" component="div">
+              WP Music
             </Typography>
-            <Button autoFocus color="inherit" onClick={onClose}>
+            {/*<Button autoFocus color="inherit" onClick={onClose}>
               save
-            </Button>
+            </Button>*/}
           </Toolbar>
         </AppBar>
         {/*<List>
@@ -83,7 +84,10 @@ export default function FullScreenDialog({ open, onClose, listId }: FullListDial
             />
           </ListItem>
         </List>*/}
-        <CardList key={selectedList.id} {...selectedList} />
+        <div  className="p-6">
+          <img src={albumCover} alt='an album cover' width={'300px'}/>
+          <CardList key={selectedList.id} {...selectedList} />
+        </div>
       </Dialog>
   );
 }
