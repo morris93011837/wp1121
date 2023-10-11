@@ -15,6 +15,7 @@ type CardContextType = {
   lists: CardListProps[];
   fetchLists: () => Promise<void>;
   fetchCards: () => Promise<void>;
+  counts: any; 
 };
 
 // context is a way to share data between components without having to pass props down the component tree
@@ -23,6 +24,7 @@ const CardContext = createContext<CardContextType>({
   lists: [],
   fetchLists: async () => {},
   fetchCards: async () => {},
+  counts: {},
 });
 // alternatively, you can set the default value to null and throw an error if the provider is not used
 // const CardContext = createContext<CardContextType | null>(null);
@@ -36,6 +38,7 @@ type CardProviderProps = {
 export function CardProvider({ children }: CardProviderProps) {
   const [rawLists, setRawLists] = useState<GetListsResponse>([]);
   const [rawCards, setRawCards] = useState<GetCardsResponse>([]);
+  var counts:any = {};
 
   const fetchLists = useCallback(async () => {
     try {
@@ -60,6 +63,7 @@ export function CardProvider({ children }: CardProviderProps) {
     const listMap = rawLists.reduce(
       (acc, list) => {
         acc[list.id] = { ...list, cards: [] };
+        counts[list.id] = 0;
         return acc;
       },
       {} as Record<string, CardListProps>,
@@ -74,6 +78,7 @@ export function CardProvider({ children }: CardProviderProps) {
         ...card,
         listId: card.list_id,
       });
+      ++(counts[card.list_id]);
     }
     return Object.values(listMap);
   }, [rawCards, rawLists]);
@@ -84,6 +89,7 @@ export function CardProvider({ children }: CardProviderProps) {
         lists,
         fetchLists,
         fetchCards,
+        counts,
       }}
     >
       {children}
