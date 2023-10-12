@@ -10,7 +10,7 @@ const Login = () => {
         {/* This link should link to the register page. */}
         {/* You can think of `Link`'s `to` prop as the anchor's `href` attribute. */}
         {/* This Link should have the text "Don't have an account?" */}
-        <Link data-testid="link-register" to='http://localhost:${VITE_PORT}/register'/>
+        <Link data-testid="link-register" to='./register'/>
         <p>Don't have an account?</p>
         {/* End of TODO 1.3 */}
       </Button>
